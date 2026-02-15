@@ -244,7 +244,7 @@ Subhash Jha
 
 ## 📞 Support
 
-For support, email your-email@example.com or open an issue in the repository.
+For support, email subhashkumarjha162@gmail.com or open an issue in the repository.
 
 ---
 
