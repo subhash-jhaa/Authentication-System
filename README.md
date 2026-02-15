@@ -2,7 +2,7 @@
 
 A full-stack authentication application built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring user registration, email verification, login, and password reset functionality.
 
-![App Screenshot](./public/image.png)
+![App Screenshot](./client/public/image.png)
 
 ## 🚀 Features
 
@@ -171,13 +171,59 @@ The client will run on `http://localhost:5173`
 ### User Routes
 - `GET /api/user/data` - Get user data (protected)
 
+## 🚀 Quick Start
+
+Run both client and server simultaneously:
+
+1. Open two terminal windows
+
+2. In the first terminal (Server):
+```bash
+cd server
+npm install
+npm start
+```
+
+3. In the second terminal (Client):
+```bash
+cd client
+npm install
+npm run dev
+```
+
+4. Open your browser and navigate to `http://localhost:5173`
+
+## 📧 Email Configuration
+
+For email functionality, you'll need to configure nodemailer with your email provider:
+
+### Gmail Setup
+1. Enable 2-factor authentication on your Google account
+2. Generate an app password
+3. Use the app password in your `.env` file
+
 ## 🎨 Screenshots
 
 Add more screenshots of your application here to showcase different features.
 
+## 🧪 Testing
+
+The application includes the following pages:
+- Home page with welcome message
+- Login page with authentication
+- Registration page with email verification
+- Email verification with OTP
+- Password reset functionality
+
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## 📄 License
 
@@ -186,7 +232,7 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 👨‍💻 Author
 
 Subhash Jha
-- GitHub: [@subhash-jha](https://github.com/subhash-jhaa)
+- GitHub: [@subhash-jhaa](https://github.com/subhash-jhaa)
 
 ## 🙏 Acknowledgments
 
@@ -194,3 +240,12 @@ Subhash Jha
 - Express.js documentation
 - MongoDB documentation
 - TailwindCSS
+- Nodemailer
+
+## 📞 Support
+
+For support, email your-email@example.com or open an issue in the repository.
+
+---
+
+**Happy Coding!** 🎉

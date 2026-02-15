@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import Jwt from 'jsonwebtoken';
 import userModel from '../models/userModel.js';
 import transporter from '../config/nodemailer.js';
-import e from 'express';
+
 
 export const register = async (req, res) => {
 
@@ -36,14 +36,22 @@ export const register = async (req, res) => {
         });
 
         // sending welcome email
-         
         const mailOptions = {
             from: process.env.SENDER_EMAIL,
-            to: user.email,
+            to: email,
             subject: 'Welcome to Our Platform!',
-            text: `Hello ${user.name},\n\nThank you for registering on our platform with email id:${user.email}. We're excited to have you on board!\n\nBest regards,\nThe Team`
+            html: `<h2>Welcome to Our Platform!</h2>
+                   <p>Hello <strong>${user.name}</strong>,</p>
+                   <p>Thank you for registering with email: <strong>${email}</strong></p>
+                   <p>We're excited to have you on board!</p>
+                   <p>Best regards,<br>The Team</p>`
         };
-        await transporter.sendMail(mailOptions);
+        
+        try {
+            await transporter.sendMail(mailOptions);
+        } catch (emailError) {
+            console.error('Email sending failed:', emailError);
+        }
 
         return res.status(201).json({success:true , message: "User registered successfully" });
     }
@@ -113,7 +121,7 @@ export const sendVerifyOtp = async(req,res)=>{
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
         user.verifyOtp = otp;
-        user.verifyOtpExpiry = Date.now() + 24 * 60 * 60 * 1000; // 10 minutes
+        user.verifyOtpExpiry = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
         await user.save();
 
         // send otp via email
@@ -121,16 +129,26 @@ export const sendVerifyOtp = async(req,res)=>{
             from: process.env.SENDER_EMAIL,
             to: user.email,
             subject: 'Your Account Verification OTP',
-            text: `Hello ${user.name},\n\nYour OTP for account verification is: ${otp}\nThis OTP is valid for 24 hours.\n\nBest regards,\nThe Team`
+            html: `<h2>Verify your email</h2>
+                   <p>Hello <strong>${user.name}</strong>,</p>
+                   <p>Your OTP for account verification is: <strong style="font-size: 24px; color: #22D172;">${otp}</strong></p>
+                   <p>This OTP is valid for 24 hours.</p>
+                   <p>Best regards,<br>The Team</p>`
         };
-        await transporter.sendMail(mailOptions);
+        
+        try {
+            await transporter.sendMail(mailOptions);
+        } catch (emailError) {
+            console.error('Email sending failed:', emailError);
+            return res.status(500).json({success:false,message:"Failed to send OTP email"});
+        }
 
         return res.status(200).json({success:true,message:"OTP sent to your email"});
 
 
 
     } catch (error) {
-        register.json({success: false,message:error.message});
+        return res.status(500).json({success: false,message:error.message});
     }
 }
 
@@ -206,9 +224,19 @@ export const sendResetOtp = async(req,res)=>{
             from: process.env.SENDER_EMAIL,
             to: user.email,
             subject: 'Your Password Reset OTP',
-            text: `Hello ${user.name},\n\nYour OTP for password reset is: ${otp}\nThis OTP is valid for 10 minutes.\n\nBest regards,\nThe Team`
+            html: `<h2>Password Reset Request</h2>
+                   <p>Hello <strong>${user.name}</strong>,</p>
+                   <p>Your OTP for password reset is: <strong style="font-size: 24px; color: #22D172;">${otp}</strong></p>
+                   <p>This OTP is valid for 10 minutes.</p>
+                   <p>Best regards,<br>The Team</p>`
         };
-        await transporter.sendMail(mailOptions);
+        
+        try {
+            await transporter.sendMail(mailOptions);
+        } catch (emailError) {
+            console.error('Email sending failed:', emailError);
+            return res.status(500).json({success:false,message:"Failed to send reset OTP email"});
+        }
         return res.status(200).json({success:true,message:"OTP sent to your email"});
     } catch (error) {
         return res.status(500).json({success:false,message:error.message});

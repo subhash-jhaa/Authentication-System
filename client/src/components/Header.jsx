@@ -1,6 +1,5 @@
-import React, { use } from 'react'
+import React, { useContext } from 'react'
 import { assets } from '../assets/assets'
-import { useContext } from 'react'
 import { AppContext } from '../context/Appcontext'
 
 const Header = () => {
