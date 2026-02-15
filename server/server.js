@@ -10,15 +10,16 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 connectDB();
 
-const allowedOrigins = [ 
-    'http://localhost:5173', 
-    'http://localhost:5174',
-    process.env.CLIENT_URL
-];
-
 // Middleware
 app.use(cors({ 
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+        // Allow localhost and any vercel.app domain
+        if (!origin || origin.includes('localhost') || origin.includes('vercel.app')) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true 
 }));
 app.use(express.json());
