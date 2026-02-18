@@ -1,0 +1,16 @@
+{
+  "name": "mern-auth-app",
+  "version": "1.0.0",
+  "description": "MERN Authentication System",
+  "type": "module",
+  "scripts": {
+    "build": "cd server && npm install && cd ../client && npm install && npm run build",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
