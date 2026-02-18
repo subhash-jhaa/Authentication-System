@@ -20,7 +20,7 @@
 6. **Add Environment Variable:**
    - Click "Environment Variables"
    - Key: `VITE_BACKEND_URL`
-   - Value: `https://your-backend-url.onrender.com` (add this after backend deployment)
+   - Value: `` (add this after backend deployment)
 
 7. **Click Deploy**
 
